@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinPulse Daily | Finance, Crypto & Business News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8f9ff;
+            --card-bg: #ffffff;
+            --text-primary: #2d2b55;
+            --text-secondary: #6c6b8a;
+            --accent-purple: #8a4fff;
+            --accent-purple-light: #a67cff;
+            --accent-purple-dark: #6b3fc4;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --border-radius: 12px;
+            --box-shadow: 0 5px 20px rgba(138, 79, 255, 0.08);
+            --box-shadow-hover: 0 10px 30px rgba(138, 79, 255, 0.15);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-purple);
+            color: white;
+            box-shadow: 0 5px 15px rgba(138, 79, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 79, 255, 0.4);
+            background: var(--accent-purple-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-purple);
+            border: 2px solid var(--accent-purple);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(138, 79, 255, 0.05);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(138, 79, 255, 0.1);
+            border-bottom: 1px solid rgba(138, 79, 255, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 2.5vw, 30px);
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-purple);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: rgba(138, 79, 255, 0.1);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            color: var(--accent-purple);
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--primary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 10px 0;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(138, 79, 255, 0.1);
+            color: var(--accent-purple);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(138, 79, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(138, 79, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(138, 79, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 79, 255, 0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 7vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 40px;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: clamp(15px, 4vw, 30px);
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .stat:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stat:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .stat-value {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .stat-label {
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: var(--text-secondary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 45%;
+            height: 70%;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(138, 79, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .card-1 {
+            top: 20%;
+            right: 10%;
+            width: 200px;
+            animation-delay: 0s;
+        }
+
+        .card-2 {
+            top: 50%;
+            right: 25%;
+            width: 180px;
+            animation-delay: 2s;
+        }
+
+        .card-3 {
+            bottom: 20%;
+            right: 15%;
+            width: 220px;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Hide floating cards on mobile */
+        @media (max-width: 992px) {
+            .hero-visual {
+                display: none;
+            }
+        }
+
+        /* Top Stories Section */
+        .top-stories {
+            background-color: var(--secondary-bg);
+            position: relative;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .story-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(138, 79, 255, 0.05);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .story-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
+        }
+
+        .story-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-light));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--accent-purple);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .story-content {
+            padding: 25px;
+        }
+
+        .story-content h3 {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin-bottom: 10px;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+
+        .story-card:hover .story-content h3 {
+            color: var(--accent-purple);
+        }
+
+        .story-content p {
+            color: var(--text-secondary);
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            margin-bottom: 20px;
+        }
+
+        .story-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .story-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Category Highlights */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .category-block {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(138, 79, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .category-block.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .category-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
+        }
+
+        .category-block:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .category-link {
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .category-link:hover {
+            color: var(--accent-purple-dark);
+        }
+
+        .category-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .category-story {
+            display: flex;
+            gap: 15px;
+            transition: var(--transition);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .category-story:hover {
+            background: rgba(138, 79, 255, 0.05);
+        }
+
+        .category-story-img {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-light));
+            border-radius: 8px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-story-content h4 {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            margin-bottom: 8px;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+
+        .category-story:hover .category-story-content h4 {
+            color: var(--accent-purple);
+        }
+
+        .category-story-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-purple-light) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .newsletter h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .newsletter p {
+            margin-bottom: 40px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 576px) {
+            .newsletter-form {
+                flex-direction: column;
+                background: transparent;
+                gap: 15px;
+            }
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 25px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 576px) {
+            .newsletter-input {
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 50px;
+            }
+        }
+
+        .newsletter-btn {
+            padding: 15px 30px;
+            background: white;
+            color: var(--accent-purple);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 576px) {
+            .newsletter-btn {
+                width: 100%;
+            }
+        }
+
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(15px, 3vw, 30px);
+            margin-top: 30px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            opacity: 0.9;
+            flex-wrap: wrap;
+        }
+
+        .trust-icons i {
+            margin-right: 8px;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--primary-bg);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 480px) {
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: var(--border-radius);
+            background: var(--card-bg);
+            transition: var(--transition);
+            border: 1px solid rgba(138, 79, 255, 0.05);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-purple);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .feature:hover .feature-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .feature h4 {
+            margin-bottom: 15px;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: var(--text-primary);
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(138, 79, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .footer-about {
+            max-width: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-about {
+                max-width: 100%;
+            }
+        }
+
+        .footer-logo {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-about p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            position: relative;
+            display: inline-block;
+            color: var(--text-primary);
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--accent-purple);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-purple);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            border: 1px solid rgba(138, 79, 255, 0.05);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-purple);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(138, 79, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+
+        /* Responsive adjustments for very small screens */
+        @media (max-width: 360px) {
+            .container {
+                width: 95%;
+                padding: 0 10px;
+            }
+            
+            .hero-btns .btn {
+                width: 100%;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-wave-square logo-icon"></i>
+                    FinPulse Daily
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Finance</a></li>
+                    <li><a href="#">Crypto</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Markets</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+        <div class="overlay"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i>
+                    Breaking: Bitcoin hits new all-time high
+                </div>
+                <h1>Stay Ahead in <span class="gradient-text">Finance, Crypto & Business</span></h1>
+                <p>Real-time news, market insights, and expert opinions — all in one place. Your daily pulse on the financial world.</p>
+                <div class="hero-btns">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-newspaper"></i>
+                        Read Latest News
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-bell"></i>
+                        Subscribe to Daily Brief
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">10K+</div>
+                        <div class="stat-label">Daily Readers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Expert Analysts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Market Coverage</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating cards for visual interest -->
+        <div class="hero-visual">
+            <div class="floating-card card-1">
+                <h4>Market Update</h4>
+                <p>NASDAQ +1.2%</p>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i> 2.4%
+                </div>
+            </div>
+            <div class="floating-card card-2">
+                <h4>Crypto Watch</h4>
+                <p>ETH $3,800</p>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i> 5.7%
+                </div>
+            </div>
+            <div class="floating-card card-3">
+                <h4>Forex</h4>
+                <p>EUR/USD 1.12</p>
+                <div class="trend down">
+                    <i class="fas fa-arrow-down"></i> 0.8%
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Stories Section -->
+    <section class="section top-stories">
+        <div class="container">
+            <h2 class="section-title">Top Stories</h2>
+            <p class="section-subtitle">Stay informed with the most important financial news and market-moving developments from around the globe.</p>
+            <div class="stories-grid">
+                <!-- Story 1 -->
+                <div class="story-card">
+                    <div class="story-img">
+                        <div class="story-tag">Finance</div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Federal Reserve Signals Rate Cuts Amid Cooling Inflation</h3>
+                        <p>Central bank indicates potential policy shift as economic data shows sustained decline in price pressures.</p>
+                        <div class="story-meta">
+                            <div class="story-date">
+                                <i class="far fa-clock"></i> 2 hours ago
+                            </div>
+                            <div class="story-read">4 min read</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Story 2 -->
+                <div class="story-card">
+                    <div class="story-img">
+                        <div class="story-tag">Crypto</div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Bitcoin ETF Approval Drives Institutional Adoption to Record Highs</h3>
+                        <p>Digital asset investments surge as traditional finance embraces cryptocurrency through regulated vehicles.</p>
+                        <div class="story-meta">
+                            <div class="story-date">
+                                <i class="far fa-clock"></i> 5 hours ago
+                            </div>
+                            <div class="story-read">6 min read</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Story 3 -->
+                <div class="story-card">
+                    <div class="story-img">
+                        <div class="story-tag">Business</div>
+                    </div>
+                    <div class="story-content">
+                        <h3>Tech Giants Announce Major AI Partnerships Amid Market Optimism</h3>
+                        <p>Industry leaders collaborate on next-generation artificial intelligence platforms, driving sector growth.</p>
+                        <div class="story-meta">
+                            <div class="story-date">
+                                <i class="far fa-clock"></i> 1 day ago
+                            </div>
+                            <div class="story-read">5 min read</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Highlights -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Market Insights</h2>
+            <p class="section-subtitle">Dive deep into specific sectors with our curated coverage of finance, cryptocurrency, and business developments.</p>
+            <div class="categories">
+                <!-- Finance Category -->
+                <div class="category-block">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <div class="category-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            Finance
+                        </h3>
+                        <a href="#" class="category-link">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="category-stories">
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Global Banks Report Strong Q1 Earnings</h4>
+                                <p>Investment banking and wealth management drive profits</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Central Banks Diversify Reserves</h4>
+                                <p>Gold purchases hit record highs amid dollar concerns</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Fintech Funding Reaches $2.3B</h4>
+                                <p>Payment solutions attract most venture capital</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Crypto Category -->
+                <div class="category-block">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <div class="category-icon">
+                                <i class="fab fa-bitcoin"></i>
+                            </div>
+                            Crypto
+                        </h3>
+                        <a href="#" class="category-link">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="category-stories">
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Ethereum Upgrade Cuts Fees by 40%</h4>
+                                <p>Network improvements enhance efficiency and scalability</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>DeFi Sees $5B Institutional Inflow</h4>
+                                <p>Yield products attract traditional finance players</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>NFT Market Shows Recovery Signs</h4>
+                                <p>Blue-chip collections lead with 15% weekly gains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Business Category -->
+                <div class="category-block">
+                    <div class="category-header">
+                        <h3 class="category-title">
+                            <div class="category-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            Business
+                        </h3>
+                        <a href="#" class="category-link">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="category-stories">
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>CEO Confidence Hits 2-Year High</h4>
+                                <p>Business leaders optimistic about economic recovery</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Supply Chain Innovation Priority</h4>
+                                <p>Companies invest in AI and automation for resilience</p>
+                            </div>
+                        </div>
+                        <div class="category-story">
+                            <div class="category-story-img"></div>
+                            <div class="category-story-content">
+                                <h4>Remote Work Reshapes Real Estate</h4>
+                                <p>Office vacancy rates remain elevated as hybrid persists</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Get Smarter Every Morning</h2>
+                <p>Join thousands of readers getting daily insights on money, markets, and tech. Delivered to your inbox at 6 AM.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe Now</button>
+                </form>
+                <div class="trust-icons">
+                    <span><i class="fas fa-shield-alt"></i> No spam, ever</span>
+                    <span><i class="fas fa-users"></i> 10k+ active subscribers</span>
+                    <span><i class="fas fa-lock"></i> Your data is secure</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Why FinPulse Daily</h2>
+                <p>We are a team of financial experts, market analysts, and tech enthusiasts dedicated to delivering accurate, timely, and actionable insights in the fast-paced world of finance, cryptocurrency, and business.</p>
+                <p>Our mission is to empower professionals and enthusiasts with the knowledge needed to navigate complex markets and make informed decisions in an increasingly digital economy.</p>
+                
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Real-time Updates</h4>
+                        <p>Stay informed with breaking news and market movements as they happen with our 24/7 coverage.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Expert Analysis</h4>
+                        <p>Deep insights from industry professionals with decades of experience across global markets.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Trusted Sources</h4>
+                        <p>All information is verified through multiple reliable channels before publication.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-wave-square"></i>
+                        FinPulse Daily
+                    </div>
+                    <p>Your trusted source for finance, cryptocurrency, and business news. Stay informed, stay ahead in today's dynamic markets.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Finance</a></li>
+                        <li><a href="#">Cryptocurrency</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Markets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FinPulse Daily. All rights reserved. | Financial news and insights for the modern investor</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced script for mobile menu toggle and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+            
+            function toggleMenu() {
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                mobileMenu.querySelector('i').classList.toggle('fa-bars');
+                mobileMenu.querySelector('i').classList.toggle('fa-times');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            }
+            
+            mobileMenu.addEventListener('click', toggleMenu);
+            
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Enhanced animation for newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = this.querySelector('.newsletter-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+                submitBtn.style.background = 'var(--accent-purple-dark)';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'white';
+                }, 3000);
+            });
+            
+            // Scroll animations for elements
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.story-card, .category-block, .feature').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Adjust layout on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active');
+                    overlay.classList.remove('active');
+                    mobileMenu.querySelector('i').classList.add('fa-bars');
+                    mobileMenu.querySelector('i').classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Add subtle hover effect to all cards
+            document.querySelectorAll('.story-card, .category-block, .feature').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
